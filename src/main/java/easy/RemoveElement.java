@@ -5,7 +5,6 @@ public class RemoveElement {
         int i =0;
         int index = 0;
         while (i<nums.length){
-
             if (nums[i]!=value){
                 nums[index]= nums[i];
                 index++;
