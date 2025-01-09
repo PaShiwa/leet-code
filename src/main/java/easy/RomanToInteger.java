@@ -2,32 +2,35 @@ package src.main.java.easy;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class RomanToInteger {
-    public int romanToInt(String s) {
-        Map<Character, Integer> stringIntegerHashMap = new HashMap<>();
-        stringIntegerHashMap.put('I',1);
-        stringIntegerHashMap.put('V',5);
-        stringIntegerHashMap.put('X',10);
-        stringIntegerHashMap.put('L',50);
-        stringIntegerHashMap.put('C',100);
-        stringIntegerHashMap.put('D',500);
-        stringIntegerHashMap.put('M',1000);
-
-        int sum=0;
-        for (int i=0;i<s.length()-1;i++){
-            if(stringIntegerHashMap.get(s.charAt(i)) < stringIntegerHashMap.get(s.charAt(i+1))){
-                sum-= stringIntegerHashMap.get(s.charAt(i));
-            }
-            else {
-                sum+= stringIntegerHashMap.get(s.charAt(i));
-            }
-        }
-        return sum+stringIntegerHashMap.get(s.charAt(s.length()-1));
+    public static void main(String[] args) {
+        String romanValue = "XVIII";
+        int integerValue = findIntegerValue(romanValue);
+        System.out.println("Integer value of " + romanValue + " is " + integerValue);
     }
 
-    public static void main(String[] args) {
-        int integerValue = new RomanToInteger().romanToInt("MCMXCIV");
-        System.out.println(integerValue);
+    private static int findIntegerValue(String romanValue) {
+        Map<Character, Integer> romanToInt = new HashMap<>();
+        romanToInt.put('I', 1);
+        romanToInt.put('V', 5);
+        romanToInt.put('X', 10);
+        romanToInt.put('L', 50);
+        romanToInt.put('C', 100);
+        romanToInt.put('D', 500);
+        romanToInt.put('M', 1000);
+
+        int sum = 0;
+        int n = romanValue.length();
+
+        for (int i = 0; i < n; i++) {
+            // If the current numeral is smaller than the next, subtract it
+            if (i < n - 1 && romanToInt.get(romanValue.charAt(i)) < romanToInt.get(romanValue.charAt(i + 1))) {
+                sum -= romanToInt.get(romanValue.charAt(i));
+            } else {
+                // Otherwise, add it
+                sum += romanToInt.get(romanValue.charAt(i));
+            }
+        }
+        return sum;
     }
 }
