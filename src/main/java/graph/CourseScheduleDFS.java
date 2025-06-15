@@ -1,7 +1,7 @@
 package LeetCode.src.main.java.graph;
 
 import java.util.*;
-public class CourseSchedule {
+public class CourseScheduleDFS {
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         Map<Integer, List<Integer>> graph = new HashMap<>();
@@ -44,7 +44,7 @@ public class CourseSchedule {
         return true;
     }
     public static void main(String[] args) {
-        CourseSchedule sch = new CourseSchedule();
+        CourseScheduleDFS sch = new CourseScheduleDFS();
 
         int numCourses2 = 2;
         int[][] prerequisites2 = {{1, 0}, {0, 1}};
