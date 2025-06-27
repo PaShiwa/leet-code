@@ -1,7 +1,13 @@
 package LeetCode.src.main.java.graph;
 
 import java.util.*;
+/*
+When course IDs don’t start from 0 and are non-contiguous like [57, 99, 22],
+you cannot use an array like int[] inDegree = new int[numCourses] because
+the indices won’t align with the course IDs.
+ */
 public class CourseScheduleBFS {
+
     public boolean canFinish(int numCourses, int[][] prerequisites){
         // 1. Build the graph and the in-degree array
 
