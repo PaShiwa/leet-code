@@ -1,58 +1,52 @@
 package LeetCode.src.main.java.graph;
 
 import java.util.*;
+
 public class CourseScheduleDFS {
 
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
+    public boolean canFinish(int[][] prerequisites) {
         Map<Integer, List<Integer>> graph = new HashMap<>();
+        Set<Integer> courseSet = new HashSet<>();
 
-        for (int i = 0; i < numCourses; i++){
-            graph.put(i, new ArrayList<>());
-        }
-
-        for(int[] pair: prerequisites){
+        for (int[] pair : prerequisites) {
             int course = pair[0];
             int prerequisite = pair[1];
-            graph.get(prerequisite).add(course);
+
+            graph.computeIfAbsent(prerequisite, k -> new ArrayList<>()).add(course);
+            courseSet.add(course);
+            courseSet.add(prerequisite);
         }
 
-        int[] visited = new int[numCourses];
+        Map<Integer, Integer> visited = new HashMap<>();
 
-        for (int i=0; i< numCourses;i++){
-            if(!dfs(i,graph,visited)){
-                return false;
+        for (int course : courseSet) {
+            if (hasCycle(course, graph, visited)) {
+                return false; // cycle found
             }
         }
         return true;
     }
 
-    private boolean dfs(int node, Map<Integer, List<Integer>> graph, int[] visited){
-        if(visited[node]==1)  // 1 -> visiting
-            return false;
+    private boolean hasCycle(int course, Map<Integer, List<Integer>> graph, Map<Integer, Integer> visited) {
+        if (visited.getOrDefault(course, 0) == 1)
+            return true; // cycle
+        if (visited.getOrDefault(course, 0) == 2)
+            return false; // already processed
 
-        if(visited[node]==2) // 2 -> fully visited
-            return true;
+        visited.put(course, 1); // mark as visiting
 
-        visited[node]=1;
-
-        for (int neighbor: graph.get(node)){
-            if (!dfs(neighbor, graph, visited))
-                return false;
+        for (int neighbor : graph.getOrDefault(course, new ArrayList<>())) {
+            if (hasCycle(neighbor, graph, visited)) return true;
         }
 
-        visited[node] = 2;
-        return true;
+        visited.put(course, 2); // mark as visited
+        return false;
     }
+
     public static void main(String[] args) {
         CourseScheduleDFS sch = new CourseScheduleDFS();
 
-        int numCourses2 = 2;
-        int[][] prerequisites2 = {{1, 0}, {0, 1}};
-        System.out.println("Test 2: " + sch.canFinish(numCourses2, prerequisites2)); // false
-
-        int numCourses3 = 4;
-        int[][] prerequisites3 = {{1, 0}, {2, 1}, {3, 2}};
-        System.out.println("Test 3: " + sch.canFinish(numCourses3, prerequisites3)); // true
-
+        int[][] prerequisites = {{1, 0}, {1,5},{0, 2},{6,0}, {2, 4}, {4, 5}, {3, 2}, {5, 3}};
+        System.out.println("\nCan finish: " + sch.canFinish(prerequisites));
     }
 }
