@@ -1,20 +1,14 @@
-package LeetCode.src.main.java.graph;
-
-class TreeNode {
-    int val;
-    TreeNode left, right;
-    TreeNode(int val) { this.val = val; }
-}
+package LeetCode.src.main.java.tree;
 
 public class KthSmallestInBST {
 
     // Counter to track how many nodes we've visited
     private int count = 0;
 
-    // Variable to store the Kth smallest value when found
+    // Variable to store the Kth Smallest value when found
     private int result = -1;
 
-    public int kthSmallest(TreeNode root, int k) {
+    public int kthSmallest(Node root, int k) {
         // Perform in-order traversal (Left → Root → Right)
         inorder(root, k);
         return result;
@@ -23,7 +17,7 @@ public class KthSmallestInBST {
     /**
      * In-order traversal with tracking of the current rank
      */
-    private void inorder(TreeNode node, int k) {
+    private void inorder(Node node, int k) {
         if (node == null) return;
 
         // Traverse left subtree first
@@ -32,7 +26,7 @@ public class KthSmallestInBST {
         // Visit current node
         count++;
         if (count == k) {
-            result = node.val;
+            result = node.value;
             return; // Found the answer, no need to continue
         }
 
@@ -43,12 +37,12 @@ public class KthSmallestInBST {
     // Sample usage
     public static void main(String[] args) {
         // Build BST
-        TreeNode root = new TreeNode(5);
-        root.left = new TreeNode(3);
-        root.right = new TreeNode(6);
-        root.left.left = new TreeNode(2);
-        root.left.right = new TreeNode(4);
-        root.left.left.left = new TreeNode(1);
+        Node root = new Node(5);
+        root.left = new Node(3);
+        root.right = new Node(6);
+        root.left.left = new Node(2);
+        root.left.right = new Node(4);
+        root.left.left.left = new Node(1);
 
         KthSmallestInBST finder = new KthSmallestInBST();
         int k = 3;
