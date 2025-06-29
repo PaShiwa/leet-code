@@ -3,7 +3,7 @@ package LeetCode.src.main.java.graph;
 import java.util.ArrayList;
 import java.util.List;
 
-class Node {
+public class Node {
     public int value;
     public List<Node> neighbors;
 
