@@ -8,7 +8,6 @@ public class UniqueArray {
 
     public static<T> void removeDuplicates(T[] array){
         Set<T> seen = new HashSet<>();
-        List<T> uniqueArray = new ArrayList<>();
         Map<T,List<Integer>> duplicatesWithIndices = new HashMap<>();
 
         for(int i =0; i<array.length;i++){
@@ -16,7 +15,6 @@ public class UniqueArray {
 
             if(!seen.contains(element)){
                 seen.add(element);
-                uniqueArray.add(element);
             }else{
                 duplicatesWithIndices
                         .computeIfAbsent(element, k-> new ArrayList<>())
@@ -24,7 +22,7 @@ public class UniqueArray {
             }
         }
 
-        System.out.println("Unique Elements: " + uniqueArray );
+        System.out.println("Unique Elements: " + seen );
 
         System.out.println("Duplicate Elements and Their Indices:");
         for (Map.Entry<T, List<Integer>> entry : duplicatesWithIndices.entrySet()) {
