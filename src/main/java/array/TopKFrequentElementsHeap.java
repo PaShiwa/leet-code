@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class TopKFrequentElements {
+public class TopKFrequentElementsHeap {
 public int[] topKFrequent (int[] nums, int k){
     Map<Integer, Integer> frequencyMap = new HashMap<>();
 
@@ -38,7 +38,7 @@ public int[] topKFrequent (int[] nums, int k){
     public static void main(String[] args) {
         int[] nums = {1,2,1,2,1,2,3,1,3,2};
         int k = 2;
-        System.out.println(Arrays.toString(new TopKFrequentElements().topKFrequent(nums, k)));
+        System.out.println(Arrays.toString(new TopKFrequentElementsHeap().topKFrequent(nums, k)));
 
     }
 }
