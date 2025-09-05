@@ -1,7 +1,6 @@
 package LeetCode.src.main.java.array;
 
 import java.util.HashSet;
-
 public class LongestConsecutiveSequence {
     public int longestConsecutiveSequenceLength(int[] numbers){
         if (numbers.length == 0) {
@@ -29,9 +28,9 @@ public class LongestConsecutiveSequence {
         }
         return longest ;
     }
+
     public static void main(String[] args) {
         int[] numbers = {100, 4, 200, 1, 3, 2};
         System.out.println(new LongestConsecutiveSequence().longestConsecutiveSequenceLength(numbers));
-
     }
 }
