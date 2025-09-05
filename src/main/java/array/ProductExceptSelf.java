@@ -18,7 +18,6 @@ public class ProductExceptSelf {
             }
         return result;
     }
-
     public static void main(String[] args) {
         int [] nums = {1,0,3,4};
         System.out.println(Arrays.toString(new ProductExceptSelf().productExceptSelf(nums)));
