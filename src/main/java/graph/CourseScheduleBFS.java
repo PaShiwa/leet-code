@@ -1,42 +1,39 @@
 package LeetCode.src.main.java.graph;
 
-import java.util.*;
-/*
-When course IDs don’t start from 0 and are non-contiguous like [57, 99, 22],
-you cannot use an array like int[] inDegree = new int[numCourses] because
-the indices won’t align with the course IDs.
- */
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class CourseScheduleBFS {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
 
-    public boolean canFinish(int numCourses, int[][] prerequisites){
-        // 1. Build the graph and the in-degree array
+        List<List<Integer>> graph = new ArrayList<>();
+        for(int i =0; i< numCourses; i++){
+            graph.add(new ArrayList<>());
+        }
 
-        Map<Integer, List<Integer>> graph = new HashMap<>();
         int[] inDegree = new int[numCourses];
 
-        for(int i =0; i< numCourses; i++){
-            graph.put(i, new ArrayList<>());
+        for(int[] pre: prerequisites){
+           int course = pre[0];
+           int prerequisite = pre[1];
+
+           graph.get(prerequisite).add(course);
+           inDegree[course]++;
         }
 
-        for (int[] pair: prerequisites){
-            int course = pair[0], prerequisite = pair[1];
-            graph.get(prerequisite).add(course); // prerequisite -> course
-            inDegree[course]++;
-        }
-
-        // 2. Initialize the queue with all in-degree 0
         Queue<Integer> queue = new LinkedList<>();
-        for (int i =0; i< numCourses; i++){
-            if (inDegree[i]==0){
+        for (int i = 0; i < numCourses; i++) {
+            if(inDegree[i]==0){
                 queue.offer(i);
             }
         }
 
-        int completedCourses = 0;
-        // 3. Process the queue
+        int courseTaken = 0;
         while(!queue.isEmpty()){
             int course = queue.poll();
-            completedCourses++;
+            courseTaken++;
 
             for(int neighbor: graph.get(course)){
                 inDegree[neighbor]--;
@@ -45,20 +42,12 @@ public class CourseScheduleBFS {
                 }
             }
         }
-        // 4. If all the courses are completed -> return true
-        return completedCourses == numCourses;
+        return numCourses==courseTaken;
     }
 
     public static void main(String[] args) {
-        CourseScheduleBFS bfs = new CourseScheduleBFS();
-
-        int numCourses2 = 2;
-        int[][] prerequisites2 = {{1, 0}, {0, 1}};
-        System.out.println("Test 2: " + bfs.canFinish(numCourses2, prerequisites2));
-
-        int numCourses3 = 4;
-        int[][] prerequisites3 = {{1, 0}, {2, 1}, {3, 2}};
-        System.out.println("Test 3: " + bfs.canFinish(numCourses3, prerequisites3));
-
+        int numCourses =3;
+        int [][] prerequisites = {{1,0},{0,1},{2,1}};
+        System.out.println( new CourseScheduleBFS().canFinish(numCourses, prerequisites));
     }
 }
