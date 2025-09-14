@@ -45,6 +45,6 @@ public class MaximumDepthOfBinaryTree {
         root.right.left.left =  new Node(5);
 
 
-        System.out.println(new MaximumDepthOfBinaryTree().maxDepth(root));
+        System.out.println( "Max Depth: " + new MaximumDepthOfBinaryTree().maxDepth(root));
     }
 }
